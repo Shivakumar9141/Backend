@@ -32,4 +32,4 @@ jobs:
         registry: hidpdeveastusbotacr.azurecr.io
         dockerfile: Dockerfile
         username: ${{ secrets.ACR_USERNAME }}
-        password: ${{ secrets.ACR_PASSWORD }
+        password: ${{ secrets.ACR_PASSWORD }}
