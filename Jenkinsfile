@@ -13,12 +13,25 @@ pipeline {
                     echo "test"
                 }
             }  
-            stage( 'Build') {
+        stage( 'Build') {
                 steps {
-                   sh "mvn clean install"
+                    script {
+                        datas = readYaml (file : "$WORKSPACE/config.yml")
+                        echo "build type is: ${datas.Build_type}"
+                        
+                        
+                        if( "${datas.Build_type}" == "maven" )
+                        {
+                        sh 'mvn clean install -DskipTests=True'
+                        }
+                        else( "${datas.Build_type}" == "gradle" ) 
+                        {    
+                        sh 'gradle build'
+                        }
                         
                     }
                 }
+            }
               stage('SonarQube analysis') {
                 steps {
                     withSonarQubeEnv('sonarqube-9.0.1') {
