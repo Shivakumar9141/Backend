@@ -77,7 +77,7 @@ pipeline {
                         cd test/
                          git branch
                         
-                         sed -i "s+hidpdeveastusbotacr.azurecr.io/hello.*+$registryUrl/hello:${BUILD_NUMBER}+g" ${WORKSPACE}/test/deployment.yml
+                         sed -i "s+hidpdeveastusazcrvvd.azurecr.io/hello.*+$registryUrl/hello:${BUILD_NUMBER}+g" ${WORKSPACE}/test/deployment.yml
                          cat deployment.yml
                          git add deployment.yml
                          git commit -m "Build_number"
