@@ -5,9 +5,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -23,16 +23,22 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean install -DskipTests=True
+      run: mvn clean install
     - name: Build & push Docker image
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
-        image: test
+        image: test1
         tags: latest
-        registry: hidpdeveastusazcrvvd.azurecr.io
+        registry: hidpdeveastusbotacr.azurecr.io
         dockerfile: Dockerfile
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
+        
+        
+        
+        
+        
+        
         
         
         
