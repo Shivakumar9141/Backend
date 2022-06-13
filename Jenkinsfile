@@ -61,7 +61,7 @@ pipeline {
                 steps {
                         sh 'rm -rf *'
                      withCredentials([usernamePassword(credentialsId: 'test', passwordVariable: 'password', usernameVariable: 'username')]) {
-                      // git remote set-url origin https://venkateshmuddusetty:${password}@github.com/venkateshmuddusetty/test.git
+                      // git remote set-url origin https://Shivakumar9141:${password}@github.com/Shivakumar9141/test.git
                          sh '''  
                          git config --global user.name "${username}"
                          git config --global user.email "shivakumaras444@gmail.com"
