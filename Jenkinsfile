@@ -2,7 +2,7 @@ properties([pipelineTriggers([githubPush()])])
 pipeline {
     agent any
     environment {
-        registryUrl = "hidpdeveastusbotacr.azurecr.io"
+        registryUrl = "hidptsteastus2acr.azurecr.io"
         
         }
     
@@ -13,15 +13,29 @@ pipeline {
                     echo "test"
                 }
             }  
-        stage( 'Build') {
+            stage( 'Build') {
                 steps {
-                   sh "mvn clean install -DskipTests=True"
+                    script {
+                        datas = readYaml (file : "$WORKSPACE/config.yml")
+                        echo "build type is: ${datas.Build_type}"
+                        
+                        
+                        if( "${datas.Build_type}" == "maven" )
+                        {
+                        sh 'mvn clean install -DskipTests=True'
+                        }
+                        else( "${datas.Build_type}" == "gradle" ) 
+                        {    
+                        sh 'gradle build'
+                        }
+                        
+                    }
                 }
             }
               stage('SonarQube analysis') {
                 steps {
-                    withSonarQubeEnv('sonarqube-9.0.1') {
-                    sh "mvn sonar:sonar -Dsonar.projectKey=maven-demo -Dsonar.host.url=http://20.62.94.77:9000 -Dsonar.login=158efdc21d2439bc98382b933222fcc94655ddea"
+                    withSonarQubeEnv('sonarqube-9.1') {
+                    sh "mvn sonar:sonar -Dsonar.projectKey=maven-demo -Dsonar.host.url=http://20.62.94.77:9000 -Dsonar.login=75b555ac651f5a3435d141fe1387d93274af9905"
     }
         }
         }
@@ -63,7 +77,7 @@ pipeline {
                         cd test/
                          git branch
                         
-                         sed -i "s+hidpdeveastusbotacr.azurecr.io/hello.*+$registryUrl/hello:${BUILD_NUMBER}+g" ${WORKSPACE}/test/deployment.yml
+                         sed -i "s+hidptsteastus2acr.azurecr.io/hello.*+$registryUrl/hello:${BUILD_NUMBER}+g" ${WORKSPACE}/test/deployment.yml
                          cat deployment.yml
                          git add deployment.yml
                          git commit -m "Build_number"
