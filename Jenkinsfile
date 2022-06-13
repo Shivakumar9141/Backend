@@ -60,12 +60,12 @@ pipeline {
             stage( 'Login to AKS repo') {
                 steps {
                         sh 'rm -rf *'
-                     withCredentials([usernamePassword(credentialsId: 'test-tken-v', passwordVariable: 'password', usernameVariable: 'username')]) {
+                     withCredentials([usernamePassword(credentialsId: 'test', passwordVariable: 'password', usernameVariable: 'username')]) {
                       // git remote set-url origin https://venkateshmuddusetty:${password}@github.com/venkateshmuddusetty/test.git
                          sh '''  
                          git config --global user.name "${username}"
-                         git config --global user.email "venkat149dev@gmail.com"
-                         git clone https://${password}@github.com/venkateshmuddusetty/test.git
+                         git config --global user.email "shivakumaras444@gmail.com"
+                         git clone https://${password}@github.com/Shivakumar9141/test.git
                           '''
                      } 
                 }
