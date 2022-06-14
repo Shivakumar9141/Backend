@@ -71,7 +71,7 @@ pipeline {
                 }
             }
             
-            stage( 'Update to AKS repo') {
+            stage( 'Update with version to AKS repo') {
                 steps {
                     sh '''
                         cd test/
