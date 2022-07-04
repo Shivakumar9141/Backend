@@ -32,13 +32,6 @@ pipeline {
                     }
                 }
             }
-              stage('SonarQube analysis') {
-                steps {
-                    withSonarQubeEnv('sonarqube-9.1') {
-                    sh "mvn sonar:sonar"
-    }
-        }
-        }
             stage( 'Build docker image') {
                 steps {
                     sh "docker build -t $registryUrl/hello:${BUILD_NUMBER} ."
